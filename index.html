@@ -1,0 +1,703 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Reset 30D - Formulário de Avaliação Inicial</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: 'Arial', sans-serif;
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            min-height: 100vh;
+            padding: 20px;
+        }
+
+        .container {
+            max-width: 800px;
+            margin: 0 auto;
+            background: white;
+            border-radius: 20px;
+            box-shadow: 0 20px 40px rgba(0,0,0,0.1);
+            overflow: hidden;
+        }
+
+        .header {
+            background: linear-gradient(135deg, #ff6b6b, #ff8e53);
+            padding: 40px 30px;
+            text-align: center;
+            color: white;
+        }
+
+        .header h1 {
+            font-size: 2.5em;
+            font-weight: bold;
+            margin-bottom: 10px;
+            text-shadow: 2px 2px 4px rgba(0,0,0,0.3);
+        }
+
+        .header p {
+            font-size: 1.2em;
+            opacity: 0.9;
+        }
+
+        .form-content {
+            padding: 40px 30px;
+        }
+
+        .section {
+            margin-bottom: 35px;
+        }
+
+        .section-title {
+            font-size: 1.4em;
+            color: #333;
+            margin-bottom: 20px;
+            padding-bottom: 10px;
+            border-bottom: 3px solid #ff6b6b;
+            display: flex;
+            align-items: center;
+        }
+
+        .section-title::before {
+            content: "📊";
+            margin-right: 10px;
+            font-size: 1.2em;
+        }
+
+        .form-row {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+            gap: 20px;
+            margin-bottom: 20px;
+        }
+
+        .form-group {
+            position: relative;
+        }
+
+        .form-group label {
+            display: block;
+            margin-bottom: 8px;
+            font-weight: 600;
+            color: #555;
+            font-size: 0.95em;
+        }
+
+        .form-group input, .form-group select {
+            width: 100%;
+            padding: 12px 15px;
+            border: 2px solid #e1e1e1;
+            border-radius: 10px;
+            font-size: 1em;
+            transition: all 0.3s ease;
+            background: #fafafa;
+        }
+
+        .form-group input:focus, .form-group select:focus {
+            outline: none;
+            border-color: #ff6b6b;
+            background: white;
+            transform: translateY(-2px);
+            box-shadow: 0 5px 15px rgba(255, 107, 107, 0.2);
+        }
+
+        .measurements-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+            gap: 15px;
+            background: #f8f9fa;
+            padding: 25px;
+            border-radius: 15px;
+            border: 2px dashed #ddd;
+        }
+
+        .measurement-item {
+            background: white;
+            padding: 15px;
+            border-radius: 10px;
+            box-shadow: 0 2px 8px rgba(0,0,0,0.1);
+            transition: transform 0.2s ease;
+        }
+
+        .measurement-item:hover {
+            transform: translateY(-3px);
+        }
+
+        .measurement-item label {
+            color: #333;
+            font-weight: 600;
+            margin-bottom: 8px;
+        }
+
+        .measurement-item input {
+            background: #f8f9fa;
+            border: 1px solid #ddd;
+        }
+
+        .measurement-item input:focus {
+            background: white;
+            border-color: #ff6b6b;
+        }
+
+        .unit {
+            position: absolute;
+            right: 15px;
+            top: 50%;
+            transform: translateY(-50%);
+            color: #888;
+            font-size: 0.9em;
+            pointer-events: none;
+        }
+
+        .instructions {
+            background: linear-gradient(135deg, #e3f2fd, #f3e5f5);
+            padding: 20px;
+            border-radius: 15px;
+            margin-bottom: 30px;
+            border-left: 5px solid #2196f3;
+        }
+
+        .instructions h3 {
+            color: #1976d2;
+            margin-bottom: 10px;
+            display: flex;
+            align-items: center;
+        }
+
+        .instructions h3::before {
+            content: "💡";
+            margin-right: 8px;
+        }
+
+        .instructions ul {
+            color: #555;
+            padding-left: 20px;
+        }
+
+        .instructions li {
+            margin-bottom: 5px;
+        }
+
+        .submit-btn {
+            background: linear-gradient(135deg, #ff6b6b, #ff8e53);
+            color: white;
+            padding: 15px 40px;
+            border: none;
+            border-radius: 25px;
+            font-size: 1.1em;
+            font-weight: 600;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            width: 100%;
+            text-transform: uppercase;
+            letter-spacing: 1px;
+        }
+
+        .submit-btn:hover {
+            transform: translateY(-3px);
+            box-shadow: 0 10px 25px rgba(255, 107, 107, 0.4);
+        }
+
+        .progress-indicator {
+            background: #f0f0f0;
+            height: 4px;
+            border-radius: 2px;
+            margin-bottom: 30px;
+            overflow: hidden;
+        }
+
+        .progress-bar {
+            height: 100%;
+            background: linear-gradient(90deg, #ff6b6b, #ff8e53);
+            width: 0%;
+            transition: width 0.3s ease;
+        }
+
+        .photos-upload {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+            gap: 25px;
+            margin-top: 20px;
+        }
+
+        .photo-upload-group {
+            background: white;
+            border-radius: 15px;
+            overflow: hidden;
+        }
+
+        .upload-area {
+            border: 3px dashed #ff6b6b;
+            border-radius: 15px;
+            padding: 30px;
+            text-align: center;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            background: #fafafa;
+            min-height: 200px;
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            position: relative;
+        }
+
+        .upload-area:hover {
+            border-color: #ff8e53;
+            background: #f0f8ff;
+            transform: translateY(-2px);
+        }
+
+        .upload-area.dragover {
+            border-color: #ff8e53;
+            background: #e3f2fd;
+            transform: scale(1.02);
+        }
+
+        .upload-content {
+            pointer-events: none;
+        }
+
+        .upload-icon {
+            font-size: 3em;
+            margin-bottom: 15px;
+            opacity: 0.7;
+        }
+
+        .upload-area p {
+            font-size: 1.1em;
+            font-weight: 600;
+            color: #333;
+            margin-bottom: 8px;
+        }
+
+        .upload-area span {
+            font-size: 0.9em;
+            color: #666;
+        }
+
+        .photo-preview {
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            bottom: 0;
+            border-radius: 15px;
+            overflow: hidden;
+            background: #000;
+        }
+
+        .photo-preview img {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+        }
+
+        .photo-preview .remove-photo {
+            position: absolute;
+            top: 10px;
+            right: 10px;
+            background: rgba(255, 107, 107, 0.9);
+            color: white;
+            border: none;
+            border-radius: 50%;
+            width: 30px;
+            height: 30px;
+            cursor: pointer;
+            font-size: 1.2em;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            transition: all 0.2s ease;
+        }
+
+        .photo-preview .remove-photo:hover {
+            background: #ff4757;
+            transform: scale(1.1);
+        }
+
+        .photo-preview .photo-label {
+            position: absolute;
+            bottom: 0;
+            left: 0;
+            right: 0;
+            background: linear-gradient(transparent, rgba(0,0,0,0.8));
+            color: white;
+            padding: 20px 15px 15px;
+            font-weight: 600;
+            text-align: center;
+        }
+            .header {
+                padding: 30px 20px;
+            }
+            
+            .header h1 {
+                font-size: 2em;
+            }
+            
+            .form-content {
+                padding: 30px 20px;
+            }
+            
+            .measurements-grid {
+                grid-template-columns: 1fr;
+                padding: 20px;
+            }
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <div class="header">
+            <h1>RESET 30D</h1>
+            <p>Transforme seu físico em 30 dias - Avaliação Inicial</p>
+        </div>
+
+        <div class="form-content">
+            <div class="progress-indicator">
+                <div class="progress-bar" id="progressBar"></div>
+            </div>
+
+            <form id="reset30dForm">
+                <!-- Dados Pessoais -->
+                <div class="section">
+                    <h2 class="section-title">Dados Pessoais</h2>
+                    <div class="form-row">
+                        <div class="form-group">
+                            <label for="nome">Nome Completo *</label>
+                            <input type="text" id="nome" name="nome" required>
+                        </div>
+                        <div class="form-group">
+                            <label for="email">E-mail *</label>
+                            <input type="email" id="email" name="email" required>
+                        </div>
+                    </div>
+                    <div class="form-row">
+                        <div class="form-group">
+                            <label for="idade">Idade *</label>
+                            <input type="number" id="idade" name="idade" min="16" max="80" required>
+                        </div>
+                        <div class="form-group">
+                            <label for="sexo">Sexo *</label>
+                            <select id="sexo" name="sexo" required>
+                                <option value="">Selecione...</option>
+                                <option value="masculino">Masculino</option>
+                                <option value="feminino">Feminino</option>
+                            </select>
+                        </div>
+                    </div>
+                    <div class="form-row">
+                        <div class="form-group">
+                            <label for="altura">Altura (cm) *</label>
+                            <input type="number" id="altura" name="altura" min="140" max="220" step="0.1" required>
+                            <span class="unit">cm</span>
+                        </div>
+                        <div class="form-group">
+                            <label for="peso">Peso Atual (kg) *</label>
+                            <input type="number" id="peso" name="peso" min="40" max="200" step="0.1" required>
+                            <span class="unit">kg</span>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Instruções -->
+                <div class="instructions">
+                    <h3>Como medir corretamente</h3>
+                    <ul>
+                        <li><strong>Use uma fita métrica flexível</strong> e mantenha-a firme, mas sem apertar demais</li>
+                        <li><strong>Meça sempre no mesmo horário</strong> (preferencialmente pela manhã)</li>
+                        <li><strong>Mantenha postura ereta</strong> e músculos relaxados durante as medições</li>
+                        <li><strong>Anote com precisão</strong> até uma casa decimal (ex: 85,5 cm)</li>
+                        <li><strong>Se possível, peça ajuda</strong> para medições nas costas e áreas difíceis</li>
+                    </ul>
+                </div>
+
+                <!-- Medidas Antropométricas -->
+                <div class="section">
+                    <h2 class="section-title">Medidas Antropométricas</h2>
+                    <div class="measurements-grid">
+                        <div class="measurement-item">
+                            <div class="form-group">
+                                <label for="peitoral">Peitoral *</label>
+                                <input type="number" id="peitoral" name="peitoral" step="0.1" min="60" max="150" required>
+                                <span class="unit">cm</span>
+                            </div>
+                        </div>
+                        
+                        <div class="measurement-item">
+                            <div class="form-group">
+                                <label for="biceps">Bíceps Relaxado *</label>
+                                <input type="number" id="biceps" name="biceps" step="0.1" min="20" max="50" required>
+                                <span class="unit">cm</span>
+                            </div>
+                        </div>
+                        
+                        <div class="measurement-item">
+                            <div class="form-group">
+                                <label for="antebraco">Antebraço *</label>
+                                <input type="number" id="antebraco" name="antebraco" step="0.1" min="15" max="40" required>
+                                <span class="unit">cm</span>
+                            </div>
+                        </div>
+                        
+                        <div class="measurement-item">
+                            <div class="form-group">
+                                <label for="cintura">Cintura *</label>
+                                <input type="number" id="cintura" name="cintura" step="0.1" min="50" max="130" required>
+                                <span class="unit">cm</span>
+                            </div>
+                        </div>
+                        
+                        <div class="measurement-item">
+                            <div class="form-group">
+                                <label for="abdomen">Abdômen *</label>
+                                <input type="number" id="abdomen" name="abdomen" step="0.1" min="60" max="140" required>
+                                <span class="unit">cm</span>
+                            </div>
+                        </div>
+                        
+                        <div class="measurement-item">
+                            <div class="form-group">
+                                <label for="quadril">Quadril *</label>
+                                <input type="number" id="quadril" name="quadril" step="0.1" min="70" max="150" required>
+                                <span class="unit">cm</span>
+                            </div>
+                        </div>
+                        
+                        <div class="measurement-item">
+                            <div class="form-group">
+                                <label for="coxa">Coxa Medial *</label>
+                                <input type="number" id="coxa" name="coxa" step="0.1" min="35" max="80" required>
+                                <span class="unit">cm</span>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Fotos de Referência -->
+                <div class="section">
+                    <h2 class="section-title">Fotos de Referência</h2>
+                    
+                    <div class="instructions" style="margin-bottom: 25px;">
+                        <h3>Dicas para fotos perfeitas</h3>
+                        <ul>
+                            <li><strong>Use roupas justas</strong> (top/sutiã esportivo e shorts para mulheres, sunga/shorts para homens)</li>
+                            <li><strong>Boa iluminação natural</strong> - próximo a uma janela ou ao ar livre</li>
+                            <li><strong>Fundo neutro</strong> - parede clara ou lisa</li>
+                            <li><strong>Postura ereta</strong> e braços ligeiramente afastados do corpo</li>
+                            <li><strong>Mesma distância</strong> da câmera (aproximadamente 2 metros)</li>
+                            <li><strong>Fotos na vertical</strong> mostrando do joelho para cima</li>
+                        </ul>
+                    </div>
+
+                    <div class="photos-upload">
+                        <div class="photo-upload-group">
+                            <div class="form-group">
+                                <label for="foto-frente">Foto de Frente *</label>
+                                <div class="upload-area" id="upload-frente">
+                                    <input type="file" id="foto-frente" name="foto-frente" accept="image/*" required hidden>
+                                    <div class="upload-content">
+                                        <div class="upload-icon">📷</div>
+                                        <p>Clique aqui ou arraste sua foto</p>
+                                        <span>Formatos: JPG, PNG, WEBP (máx. 5MB)</span>
+                                    </div>
+                                    <div class="photo-preview" id="preview-frente" style="display: none;"></div>
+                                </div>
+                            </div>
+                        </div>
+
+                        <div class="photo-upload-group">
+                            <div class="form-group">
+                                <label for="foto-costas">Foto de Costas *</label>
+                                <div class="upload-area" id="upload-costas">
+                                    <input type="file" id="foto-costas" name="foto-costas" accept="image/*" required hidden>
+                                    <div class="upload-content">
+                                        <div class="upload-icon">📷</div>
+                                        <p>Clique aqui ou arraste sua foto</p>
+                                        <span>Formatos: JPG, PNG, WEBP (máx. 5MB)</span>
+                                    </div>
+                                    <div class="photo-preview" id="preview-costas" style="display: none;"></div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Objetivo -->
+                <div class="section">
+                    <h2 class="section-title">Seu Objetivo</h2>
+                    <div class="form-group">
+                        <label for="objetivo">Qual seu principal objetivo com o Reset 30D? *</label>
+                        <select id="objetivo" name="objetivo" required>
+                            <option value="">Selecione seu objetivo...</option>
+                            <option value="perda_peso">Perda de Peso</option>
+                            <option value="ganho_massa">Ganho de Massa Muscular</option>
+                            <option value="definicao">Definição Muscular</option>
+                            <option value="condicionamento">Melhora do Condicionamento</option>
+                            <option value="saude_geral">Saúde Geral</option>
+                        </select>
+                    </div>
+                </div>
+
+                <button type="submit" class="submit-btn">
+                    Iniciar Meu Reset 30D 🚀
+                </button>
+            </form>
+        </div>
+    </div>
+
+    <script>
+        // Photo upload functionality
+        function setupPhotoUpload(uploadAreaId, inputId, previewId, label) {
+            const uploadArea = document.getElementById(uploadAreaId);
+            const input = document.getElementById(inputId);
+            const preview = document.getElementById(previewId);
+
+            // Click to upload
+            uploadArea.addEventListener('click', () => input.click());
+
+            // Drag and drop
+            uploadArea.addEventListener('dragover', (e) => {
+                e.preventDefault();
+                uploadArea.classList.add('dragover');
+            });
+
+            uploadArea.addEventListener('dragleave', () => {
+                uploadArea.classList.remove('dragover');
+            });
+
+            uploadArea.addEventListener('drop', (e) => {
+                e.preventDefault();
+                uploadArea.classList.remove('dragover');
+                const files = e.dataTransfer.files;
+                if (files.length > 0) {
+                    handleFile(files[0], input, preview, label);
+                }
+            });
+
+            // File input change
+            input.addEventListener('change', (e) => {
+                if (e.target.files.length > 0) {
+                    handleFile(e.target.files[0], input, preview, label);
+                }
+            });
+        }
+
+        function handleFile(file, input, preview, label) {
+            // Validate file type
+            if (!file.type.startsWith('image/')) {
+                alert('Por favor, selecione apenas arquivos de imagem.');
+                return;
+            }
+
+            // Validate file size (5MB)
+            if (file.size > 5 * 1024 * 1024) {
+                alert('A imagem deve ter no máximo 5MB.');
+                return;
+            }
+
+            // Create file reader
+            const reader = new FileReader();
+            reader.onload = (e) => {
+                preview.innerHTML = `
+                    <img src="${e.target.result}" alt="${label}">
+                    <button type="button" class="remove-photo" onclick="removePhoto('${input.id}', '${preview.id}')">×</button>
+                    <div class="photo-label">${label}</div>
+                `;
+                preview.style.display = 'block';
+                updateProgress();
+            };
+            reader.readAsDataURL(file);
+        }
+
+        function removePhoto(inputId, previewId) {
+            document.getElementById(inputId).value = '';
+            document.getElementById(previewId).style.display = 'none';
+            document.getElementById(previewId).innerHTML = '';
+            updateProgress();
+        }
+
+        // Setup photo uploads
+        setupPhotoUpload('upload-frente', 'foto-frente', 'preview-frente', 'Foto de Frente');
+        setupPhotoUpload('upload-costas', 'foto-costas', 'preview-costas', 'Foto de Costas');
+
+        const form = document.getElementById('reset30dForm');
+        const progressBar = document.getElementById('progressBar');
+        const inputs = form.querySelectorAll('input[required], select[required]');
+
+        // Update progress bar
+        function updateProgress() {
+            let filledInputs = 0;
+            inputs.forEach(input => {
+                if (input.value.trim() !== '') {
+                    filledInputs++;
+                }
+            });
+            
+            const progress = (filledInputs / inputs.length) * 100;
+            progressBar.style.width = progress + '%';
+        }
+
+        // Add event listeners to all inputs
+        inputs.forEach(input => {
+            input.addEventListener('input', updateProgress);
+            input.addEventListener('change', updateProgress);
+        });
+
+        // Form submission
+        form.addEventListener('submit', function(e) {
+            e.preventDefault();
+            
+            // Collect form data
+            const formData = new FormData(form);
+            const data = {};
+            
+            for (let [key, value] of formData.entries()) {
+                data[key] = value;
+            }
+            
+            // Add photo data
+            const fotoFrente = document.getElementById('foto-frente').files[0];
+            const fotoCostas = document.getElementById('foto-costas').files[0];
+            
+            if (fotoFrente) {
+                data.fotoFrente = {
+                    name: fotoFrente.name,
+                    size: fotoFrente.size,
+                    type: fotoFrente.type
+                };
+            }
+            
+            if (fotoCostas) {
+                data.fotoCostas = {
+                    name: fotoCostas.name,
+                    size: fotoCostas.size,
+                    type: fotoCostas.type
+                };
+            }
+            
+            // Calculate BMI
+            const altura = parseFloat(data.altura) / 100; // convert to meters
+            const peso = parseFloat(data.peso);
+            const bmi = (peso / (altura * altura)).toFixed(1);
+            data.bmi = bmi;
+            
+            // Add timestamp
+            data.dataInicial = new Date().toLocaleString('pt-BR');
+            
+            // Display success message (in a real application, you would send this to a server)
+            alert(`Parabéns ${data.nome}! Seus dados foram registrados com sucesso.\n\nSeu IMC atual: ${bmi}\nData de início: ${data.dataInicial}\nFotos: ${fotoFrente ? '✓' : '✗'} Frente | ${fotoCostas ? '✓' : '✗'} Costas\n\nBoa sorte no seu Reset 30D! 💪`);
+            
+            console.log('Dados do participante:', data);
+        });
+
+        // Initialize progress
+        updateProgress();
+    </script>
+</body>
+</html>
