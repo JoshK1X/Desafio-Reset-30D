@@ -12,7 +12,7 @@
         }
 
         body {
-            font-family: 'Montserrat', sans-serif;
+            font-family: 'Arial', sans-serif;
             background: linear-gradient(135deg, #6A1937 0%, #4A1125 100%);
             min-height: 100vh;
             padding: 20px;
@@ -96,7 +96,7 @@
             border-radius: 10px;
             font-size: 1em;
             transition: all 0.3s ease;
-            background: #6A1937;
+            background: #fafafa;
         }
 
         .form-group input:focus, .form-group select:focus {
@@ -114,7 +114,7 @@
             background: #f8f9fa;
             padding: 25px;
             border-radius: 15px;
-            border: 3px dashed #6A1937;
+            border: 2px dashed #ddd;
         }
 
         .measurement-item {
@@ -142,7 +142,7 @@
 
         .measurement-item input:focus {
             background: white;
-            border-color: #ff6b6b;
+            border-color: #6A1937;
         }
 
         .unit {
@@ -160,11 +160,11 @@
             padding: 20px;
             border-radius: 15px;
             margin-bottom: 30px;
-            border-left: 5px solid #2196f3;
+            border-left: 5px solid #6A1937;
         }
 
         .instructions h3 {
-            color: #1976d2;
+            color: #6A1937;
             margin-bottom: 10px;
             display: flex;
             align-items: center;
@@ -182,42 +182,6 @@
 
         .instructions li {
             margin-bottom: 5px;
-        }
-
-        .submit-btn {
-            background: linear-gradient(135deg, #FFD700, #FFC107);
-            color: #4A1125;
-            padding: 15px 40px;
-            border: none;
-            border-radius: 25px;
-            font-size: 1.1em;
-            font-weight: 700;
-            cursor: pointer;
-            transition: all 0.3s ease;
-            width: 100%;
-            text-transform: uppercase;
-            letter-spacing: 1px;
-        }
-
-        .submit-btn:hover {
-            transform: translateY(-3px);
-            box-shadow: 0 10px 25px rgba(255, 215, 0, 0.4);
-            background: linear-gradient(135deg, #FFC107, #FFB300);
-        }
-
-        .progress-indicator {
-            background: #f0f0f0;
-            height: 4px;
-            border-radius: 2px;
-            margin-bottom: 30px;
-            overflow: hidden;
-        }
-
-        .progress-bar {
-            height: 100%;
-            background: linear-gradient(90deg, #6A1937, #8B2651);
-            width: 0%;
-            transition: width 0.3s ease;
         }
 
         .photos-upload {
@@ -255,7 +219,7 @@
         }
 
         .upload-area.dragover {
-            border-color: #ff8e53;
+            border-color: #8B2651;
             background: #e3f2fd;
             transform: scale(1.02);
         }
@@ -333,6 +297,45 @@
             font-weight: 600;
             text-align: center;
         }
+
+        .submit-btn {
+            background: linear-gradient(135deg, #FFD700, #FFC107);
+            color: #4A1125;
+            padding: 15px 40px;
+            border: none;
+            border-radius: 25px;
+            font-size: 1.1em;
+            font-weight: 700;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            width: 100%;
+            text-transform: uppercase;
+            letter-spacing: 1px;
+            text-shadow: none;
+        }
+
+        .submit-btn:hover {
+            transform: translateY(-3px);
+            box-shadow: 0 10px 25px rgba(255, 215, 0, 0.4);
+            background: linear-gradient(135deg, #FFC107, #FFB300);
+        }
+
+        .progress-indicator {
+            background: #f0f0f0;
+            height: 4px;
+            border-radius: 2px;
+            margin-bottom: 30px;
+            overflow: hidden;
+        }
+
+        .progress-bar {
+            height: 100%;
+            background: linear-gradient(90deg, #6A1937, #8B2651);
+            width: 0%;
+            transition: width 0.3s ease;
+        }
+
+        @media (max-width: 768px) {
             .header {
                 padding: 30px 20px;
             }
@@ -349,14 +352,24 @@
                 grid-template-columns: 1fr;
                 padding: 20px;
             }
+
+            .photos-upload {
+                grid-template-columns: 1fr;
+                gap: 20px;
+            }
+
+            .upload-area {
+                min-height: 180px;
+                padding: 25px;
+            }
         }
     </style>
 </head>
 <body>
     <div class="container">
         <div class="header">
-            <h1>Desafio Reset 30D</h1>
-            <p>O primeiro passo começa aqui - Avaliação Inicial</p>
+            <h1>RESET 30D</h1>
+            <p>Transforme seu físico em 30 dias - Avaliação Inicial</p>
         </div>
 
         <div class="form-content">
@@ -692,7 +705,7 @@
             data.dataInicial = new Date().toLocaleString('pt-BR');
             
             // Display success message (in a real application, you would send this to a server)
-            alert(`Parabéns ${data.nome}! Seus dados foram registrados com sucesso.\n\nSeu IMC atual: ${bmi}\nData de início: ${data.dataInicial}\nFotos: ${fotoFrente ? '✓' : '✗'} Frente | ${fotoCostas ? '✓' : '✗'} Costas\n\nBoa sorte no seu Reset 30D! 💪`);
+            alert(`🎉 Parabéns ${data.nome}! Seus dados foram registrados com sucesso.\n\n📊 IMC atual: ${bmi}\n📅 Data de início: ${data.dataInicial}\n📸 Fotos: ${fotoFrente ? '✓' : '✗'} Frente | ${fotoCostas ? '✓' : '✗'} Costas\n\n💪 Prepare-se para a transformação no Reset 30D!`);
             
             console.log('Dados do participante:', data);
         });
